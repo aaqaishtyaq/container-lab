@@ -48,7 +48,7 @@ resource "aws_instance" "lab1" {
 
   root_block_device {
     delete_on_termination = true
-    volume_size = 24
+    volume_size           = 24
   }
 
   tags = {
