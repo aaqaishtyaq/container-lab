@@ -42,6 +42,15 @@ resource "aws_instance" "lab1" {
   vpc_security_group_ids = [aws_security_group.ec2_ssh_sg.id]
   subnet_id              = aws_subnet.pub_subnet.id
 
+  credit_specification {
+    cpu_credits = "standard"
+  }
+
+  root_block_device {
+    delete_on_termination = true
+    volume_size = 24
+  }
+
   tags = {
     Name = var.instance_name
   }

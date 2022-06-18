@@ -1,14 +1,7 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.19"
-    }
-  }
+module "aws" {
+  source = "./modules/aws"
 
-  required_version = ">= 1.2.0"
-}
-
-provider "aws" {
-  region = var.region
+  instance_name    = var.instance_name
+  deployer_pub_key = var.deployer_pub_key
+  root_volume_size = var.root_volume_size
 }
