@@ -1,7 +1,4 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/terraform,macos
-# Edit at https://www.toptal.com/developers/gitignore?templates=terraform,macos
-
 ### macOS ###
 # General
 .DS_Store
@@ -42,6 +39,7 @@ Temporary Items
 # .tfstate files
 *.tfstate
 *.tfstate.*
+tfstate
 
 # Crash log files
 crash.log
@@ -71,4 +69,4 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-# End of https://www.toptal.com/developers/gitignore/api/terraform,macos
+*.terraform.lock.hcl
