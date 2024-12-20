@@ -1,22 +1,26 @@
-data "aws_ami" "ubuntu" {
-  most_recent = true
+# data "aws_ami" "ubuntu" {
+#   most_recent = true
 
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
-  }
+#   filter {
+#     name   = "name"
+#     values = ["/aws/service/canonical/ubuntu/server/24.04/stable/current/amd64/hvm/ebs-gp3/ami-id"]
+#   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
 
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
+#   filter {
+#     name   = "architecture"
+#     values = ["x86_64"]
+#   }
 
-  owners = ["099720109477"] # Canonical
+#   owners = ["099720109477"] # Canonical
+# }
+
+data "aws_ssm_parameter" "ubuntu_24_04_ami" {
+  name = "/aws/service/canonical/ubuntu/server/24.04/stable/current/amd64/hvm/ebs-gp3/ami-id"
 }
 
 resource "aws_eip_association" "eip_assoc" {
@@ -34,7 +38,7 @@ resource "aws_key_pair" "deployer" {
 }
 
 resource "aws_instance" "lab1" {
-  ami                    = data.aws_ami.ubuntu.id
+  ami                    = data.aws_ssm_parameter.ubuntu_24_04_ami.value
   instance_type          = "t3.micro"
   key_name               = aws_key_pair.deployer.key_name
   user_data              = file("scripts/install_docker.sh")
